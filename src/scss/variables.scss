@@ -1,0 +1,91 @@
+// setting
+$enable-cssgrid: true;
+$enable-rfs: false;
+
+// font
+$font-family-base: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
+  "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$headings-font-weight: 700;
+$link-decoration: none;
+
+//border
+$border-width: 2px;
+$border-radius: 16px;
+$border-radius-lg: 12px;
+$border-radius-xxl: 24px;
+
+//colors
+:root {
+  --primary-gradient: linear-gradient(90deg, #e5793b 1.54%, #ff4185 97.86%);
+}
+$primary: #da7d4a;
+$primary-light: #f7ece1;
+$gray-100: #f1f5f9;
+$gray-200: #e2e8f0;
+$gray-300: #cbd5e1;
+$gray-400: #94a3b8;
+$gray-500: #64748b;
+$gray-600: #475569;
+$gray-700: #334155;
+$gray-800: #1e293b;
+$gray-900: #0f172a;
+
+$theme-colors: (
+  "primary": $primary,
+  "primary-light": $primary-light,
+  "secondary": $gray-400,
+  "light": $gray-100,
+  "dark": $gray-700,
+  "white": #fff,
+);
+$body-color: $gray-700;
+
+//shadow
+$box-shadow-lg: 0px 4px 12px 0px rgba(163, 180, 203, 0.2);
+
+// space
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer * 0.75,
+  4: $spacer,
+  5: $spacer * 1.25,
+  6: $spacer * 1.5,
+  8: $spacer * 2,
+  9: $spacer * 2.25,
+  10: $spacer * 2.5,
+  12: $spacer * 3,
+  16: $spacer * 4,
+  20: $spacer * 5,
+  24: $spacer * 6,
+  26: $spacer * 6.5,
+  42: $spacer * 10.5,
+  48: $spacer * 12,
+  52: $spacer * 13,
+);
+$container-max-widths: (
+  xs: 343px,
+  sm: 540px,
+  md: 696px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px,
+);
+$list-inline-padding: 1rem;
+
+//badge
+$badge-padding-y: 0.5em;
+$badge-padding-x: 0.75em;
+$badge-border-radius: 8px;
+
+//btn
+$input-btn-padding-y: 1rem;
+$input-btn-padding-x: 1.5rem;
+$btn-border-radius: 500px;
+$btn-font-weight: 700;
+
+//card
+$card-title-color: $primary;
+$card-spacer-y: 0;
