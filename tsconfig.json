@@ -5,6 +5,10 @@
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@images/*": ["./src/assets/images/*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -20,6 +24,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/main.js", "src/main.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

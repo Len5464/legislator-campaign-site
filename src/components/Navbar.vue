@@ -6,7 +6,7 @@
         href="#"
       >
         <img
-          src="/images/logo.svg"
+          src="@images/logo.svg"
           alt="Logo"
           width="52"
           height="43"
@@ -88,7 +88,7 @@
         <img
           width="24"
           height="24"
-          src="/images/icon-user.svg"
+          src="@images/icon-user.svg"
           alt="候選人主張"
         />
         候選人主張
@@ -102,7 +102,7 @@
         <img
           width="24"
           height="24"
-          src="/images/icon-topic.svg"
+          src="@images/icon-topic.svg"
           alt="最新活動"
         />
         最新活動
@@ -116,7 +116,7 @@
         <img
           width="24"
           height="24"
-          src="/images/icon-event.svg"
+          src="@images/icon-event.svg"
           alt="政策議題"
         />
         政策議題
@@ -130,7 +130,7 @@
         <img
           width="24"
           height="24"
-          src="/images/icon-donate.svg"
+          src="@images/icon-donate.svg"
           alt="小額捐款"
         />
         小額捐款
@@ -144,7 +144,7 @@
         <img
           width="24"
           height="24"
-          src="/images/icon-contact.svg"
+          src="@images/icon-contact.svg"
           alt="服務信箱"
         />
         服務信箱

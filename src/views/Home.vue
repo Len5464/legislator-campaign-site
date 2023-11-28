@@ -5,23 +5,15 @@
   import Marquee from "../components/Marquee.vue";
   import Modal from "../components/Modal.vue";
   import Navbar from "../components/Navbar.vue";
-  import Event3 from "../views/Event3.vue";
-  import Event2 from "../views/Event2.vue";
-  import Event1 from "../views/Event1.vue";
   import { ref } from "vue";
-  // defineProps<{ msg: string }>();
-  const modal = ref({
-    currentView: Event3,
-    show: false,
-  });
+  const showModal = ref(false);
 </script>
 
 <template>
   <Modal
-    :show="modal.show"
-    @Close="modal.show = false"
+    :show="showModal"
+    @Close="showModal = false"
   >
-    <component :is="modal.currentView"></component>
   </Modal>
   <Navbar />
   <header class="border min-svh-100 vstack justify-content-end align-items-center position-relative overflow-x-hidden">
@@ -41,7 +33,7 @@
       </div>
     </div>
     <img
-      srcset="/images/portrait-1.png 723w, /images/portrait-1-sm.png 480w"
+      srcset="@images/portrait-1.png 723w, @images/portrait-1-sm.png 480w"
       sizes="(max-width: 992px) 480px, 723px"
       alt="我是喵立翰"
     />
@@ -98,7 +90,7 @@
           </div>
           <img
             class="g-col-12 g-col-lg-6 w-100 h-100 object-fit-cover"
-            src="/images/proposition.png"
+            src="@images/proposition.png"
             alt="我的主張"
           />
         </div>
@@ -116,16 +108,18 @@
         <a
           href="#latestEvents"
           class="g-col-12 g-col-lg-6 link-dark"
-          @click="
-            modal.currentView = Event3;
-            modal.show = true;
-          "
+          @click="showModal = true"
         >
           <Card
-            imgURL="/images/last-event-3.png"
             date="2023/12/26"
             title="參與台北寵物論壇，爭取貓咪友善環境"
           >
+            <template #image>
+              <img
+                src="@images/last-event-3.png"
+                alt="活動照片"
+              />
+            </template>
             炎炎夏日的周六，我走進了台北寵物論壇，帶著一副貓耳髮箍，決定要全力宣傳「貓咪至上」的理念！我相信，我們的都市中，每一隻貓咪都應該有自己的
             VIP 休憩空間。
           </Card>
@@ -135,16 +129,18 @@
             <a
               href="#latestEvents"
               class="link-dark"
-              @click="
-                modal.currentView = Event1;
-                modal.show = true;
-              "
+              @click="showModal = true"
             >
               <CardList
-                imgURL="/images/last-event-1.png"
                 date="2023/12/24"
                 title="掃街模式開啟！帶著你的貓耳，來和我一起走！"
               >
+                <template #image>
+                  <img
+                    src="@images/last-event-1.png"
+                    alt="活動照片"
+                  />
+                </template>
                 街上氣氛真的很棒，從小孩到大人，甚至有些狗狗朋友都帶著貓耳來找我握手，真的太可愛了！
               </CardList>
             </a>
@@ -153,16 +149,18 @@
             <a
               href="#latestEvents"
               class="link-dark"
-              @click="
-                modal.currentView = Event2;
-                modal.show = true;
-              "
+              @click="showModal = true"
             >
               <CardList
-                imgURL="/images/last-event-2.png"
                 date="2023/12/20"
                 title="收容所模特兒大比拼！"
               >
+                <template #image>
+                  <img
+                    src="@images/last-event-2.png"
+                    alt="活動照片"
+                  />
+                </template>
                 今天的收容所不再是一片寂靜。為了讓更多人認識到這裡的毛孩子，我們舉辦了一場前所未有的「模特兒走秀」！
               </CardList>
             </a>
@@ -171,16 +169,18 @@
             <a
               href="#latestEvents"
               class="link-dark"
-              @click="
-                modal.currentView = Event3;
-                modal.show = true;
-              "
+              @click="showModal = true"
             >
               <CardList
-                imgURL="/images/last-event-3.png"
                 date="2023/12/26"
                 title="參與台北寵物論壇，爭取貓咪友善環境"
               >
+                <template #image>
+                  <img
+                    src="@images/last-event-3.png"
+                    alt="活動照片"
+                  />
+                </template>
                 炎炎夏日的周六，我走進了台北寵物論壇，帶著一副貓耳髮箍，決定要全力宣傳「貓咪至上」的理念！
               </CardList>
             </a>
@@ -217,7 +217,7 @@
 
             <img
               class="w-100 rounded-5"
-              src="/images/policy-1.png"
+              src="@images/policy-1.png"
               alt="政策1"
             />
           </a>
@@ -231,7 +231,7 @@
 
             <img
               class="w-100 rounded-5"
-              src="/images/policy-2.png"
+              src="@images/policy-2.png"
               alt="政策2"
             />
           </a>
@@ -245,7 +245,7 @@
 
             <img
               class="w-100 rounded-5"
-              src="/images/policy-3.png"
+              src="@images/policy-3.png"
               alt="政策3"
             />
           </a>
@@ -273,7 +273,7 @@
           </a>
           <img
             class="min-w-100px"
-            src="/images/donate.png"
+            src="@images/donate.png"
             alt="捐款圖"
           />
         </div>

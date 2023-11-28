@@ -6,16 +6,15 @@
   width: 32px;
   height: 32px;
   padding: 2px;
-  display: inline-block;
-  vertical-align: middle;
+  display: block;
   &-fb {
-    background: url(/images/fb.svg) center no-repeat;
+    background: url(/src/assets/images/fb.svg) center no-repeat;
   }
   &-ig {
-    background: url(/images/ig.svg) center no-repeat;
+    background: url(/src/assets/images/ig.svg) center no-repeat;
   }
   &-yt {
-    background: url(/images/youtube.svg) center no-repeat;
+    background: url(/src/assets/images/youtube.svg) center no-repeat;
   }
 }
 
