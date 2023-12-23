@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { types } from "@/assets/data/data";
+  import { types } from "@/types/data";
   import IconFB from "@/assets/icons/IconFB.vue";
   import IconIG from "@/assets/icons/IconIG.vue";
   import IconLine from "@/assets/icons/IconLine.vue";

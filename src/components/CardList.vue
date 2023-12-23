@@ -1,7 +1,8 @@
 <script setup lang="ts">
-  import { types } from "@/assets/data/data";
+  import { types } from "@/types/data";
 
   const props = defineProps<types.Event>();
+  console.log(import.meta.env.BASE_URL);
 </script>
 
 <template>

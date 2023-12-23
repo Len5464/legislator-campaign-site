@@ -4,14 +4,14 @@
   import CardList from "@/components/CardList.vue";
   import Footer from "@/layout/Footer.vue";
   import Marquee from "@/components/Marquee.vue";
-  import Modal from "@/layout/Modal.vue";
+  import Modal from "@/components/Modal.vue";
   import Navbar from "@/layout/Navbar.vue";
   import IconIG from "@/assets/icons/IconIG.vue";
   import IconLine from "@/assets/icons/IconLine.vue";
   import { onMounted, ref } from "vue";
-  import Post from "@/layout/Post.vue";
-  import { types } from "@/assets/data/data";
-  import { isEventArray, isPolicyArray } from "@/assets/data/guard";
+  import Post from "@/components/Post.vue";
+  import { types } from "@/types/data";
+  import { isEventArray, isPolicyArray } from "@/helpers/typeGuard";
   const modalFlags = ref({
     event1: false,
     event2: false,
@@ -56,7 +56,7 @@
   }
 
   onMounted(() => {
-    getAPIsData(["src/assets/data/events.json", "src/assets/data/policy.json"]);
+    getAPIsData(["/legislator-campaign-site/data/events.json", "/legislator-campaign-site/data/policy.json"]);
   });
 </script>
 
@@ -79,7 +79,7 @@
       </div>
     </div>
     <img
-      srcset="@img/portrait-1.png 723w, @img/portrait-1-sm.png 480w"
+      srcset="/images/portrait-1.png 723w, /images/portrait-1-sm.png 480w"
       sizes="(max-width: 992px) 480px, 723px"
       alt="我是喵立翰"
     />
@@ -132,7 +132,7 @@
           </div>
           <img
             class="g-col-12 g-col-lg-6 w-100 h-100 object-fit-cover"
-            src="@img/proposition.png"
+            src="/images/proposition.png"
             alt="我的主張"
           />
         </div>
@@ -158,7 +158,7 @@
           />
           <Card
             v-else
-            img-url="src/assets/images/img-empty.svg"
+            img-url="/images/img-empty.svg"
           />
         </a>
         <ul class="list-unstyled g-col-12 g-col-lg-6">
@@ -283,7 +283,7 @@
 
             <img
               class="w-100 rounded-5"
-              src="@img/policy-1.png"
+              src="/images/policy-1.png"
               alt="政策1"
             />
           </a>
@@ -311,7 +311,7 @@
 
             <img
               class="w-100 rounded-5"
-              src="@img/policy-2.png"
+              src="/images/policy-2.png"
               alt="政策2"
             />
           </a>
@@ -339,7 +339,7 @@
 
             <img
               class="w-100 rounded-5"
-              src="@img/policy-3.png"
+              src="/images/policy-3.png"
               alt="政策3"
             />
           </a>
@@ -367,7 +367,7 @@
           </a>
           <img
             class="min-w-100px"
-            src="@img/donate.png"
+            src="/images/donate.png"
             alt="捐款圖"
           />
         </div>
@@ -409,3 +409,4 @@
 
   <Footer />
 </template>
+@/assets/data/utils

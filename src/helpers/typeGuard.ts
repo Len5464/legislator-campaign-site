@@ -1,4 +1,4 @@
-import { types } from "./data";
+import { types } from "@/types/data";
 
 export function isEventArray(posts: any[]): posts is types.Event[] {
   return posts[0].category === "最新活動";
