@@ -1,0 +1,65 @@
+[
+  {
+    "id": "policy1",
+    "title": "為毛孩子謀福利！推動寵物醫療保障方案",
+    "category": "政策議題",
+    "imgUrl": "src/assets/images/policy-1.png",
+    "content": [
+      {
+        "policy": "設立寵物醫療基金",
+        "description": "每年撥款新台幣 10 億元，專款專用於支援家庭寵物的醫療費用"
+      },
+      {
+        "policy": "提供醫療補助",
+        "description": "每隻寵物每年可獲得高達新台幣 20,000 元的醫療補助，減輕飼主的經濟壓力"
+      },
+      {
+        "policy": "合作動物醫院",
+        "description": "目前已有和超過 200 家動物醫院進行初步的合作討論"
+      }
+    ],
+    "relatedID": ["policy2", "policy3"]
+  },
+  {
+    "id": "policy2",
+    "title": "打造休閒天堂！推廣寵物休閒與娛樂場所",
+    "category": "政策議題",
+    "imgUrl": "src/assets/images/policy-2.png",
+    "content": [
+      {
+        "policy": "打造寵物休閒場所",
+        "description": "規劃並建設寵物休閒與娛樂場所，提供多樣化的活動和娛樂設施"
+      },
+      {
+        "policy": "推廣寵物休閒活動",
+        "description": "舉辦各類寵物休閒活動，增進飼主與寵物之間的互動與樂趣"
+      },
+      {
+        "policy": "提供休閒資源",
+        "description": "提供資源支援，鼓勵地方政府和私人部門投入寵物休閒設施的建設"
+      }
+    ],
+    "relatedID": ["policy1", "policy3"]
+  },
+  {
+    "id": "policy3",
+    "title": "推廣寵物飼養教育，讓愛更加專業",
+    "category": "政策議題",
+    "imgUrl": "src/assets/images/policy-3.png",
+    "content": [
+      {
+        "policy": "推動寵物飼養教育",
+        "description": "舉辦寵物飼養教育活動，提高飼主對寵物健康和行為的認識"
+      },
+      {
+        "policy": "設立專業飼養資源",
+        "description": "建立專業的寵物飼養資源平台，提供健康飲食、訓練等方面的知識和指導"
+      },
+      {
+        "policy": "合作學校推動教育",
+        "description": "與學校合作，將寵物飼養教育融入課程，培養學生的寵物關愛觀念"
+      }
+    ],
+    "relatedID": ["policy1", "policy2"]
+  }
+]

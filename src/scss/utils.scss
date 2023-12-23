@@ -2,21 +2,6 @@
   min-height: 100vh;
   min-height: 100svh;
 }
-.icon {
-  width: 32px;
-  height: 32px;
-  padding: 2px;
-  display: block;
-  &-fb {
-    background: url(/src/assets/images/fb.svg) center no-repeat;
-  }
-  &-ig {
-    background: url(/src/assets/images/ig.svg) center no-repeat;
-  }
-  &-yt {
-    background: url(/src/assets/images/youtube.svg) center no-repeat;
-  }
-}
 
 .circle-mark {
   display: inline-block;
@@ -53,7 +38,9 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
+.cursor-pointer {
+  cursor: pointer;
+}
 $utilities: map-merge(
   $utilities,
   (
@@ -63,6 +50,18 @@ $utilities: map-merge(
       responsive: true,
       values: (
         "100px": 100px,
+        "340px": 340px,
+        "507px": 507px,
+      ),
+    ),
+    "aspect-ratio": (
+      property: aspect-ratio,
+      class: aspect-ratio,
+      responsive: true,
+      values: (
+        "16x9": calc(16 / 9),
+        "16x10": calc(16 / 10),
+        "1x1": 1,
       ),
     ),
     "padding":
@@ -132,6 +131,13 @@ $utilities: map-merge(
                 "52px": 52px,
               )
             ),
+        )
+      ),
+    "border-color":
+      map-merge(
+        map-get($utilities, "border-color"),
+        (
+          state: hover,
         )
       ),
   )

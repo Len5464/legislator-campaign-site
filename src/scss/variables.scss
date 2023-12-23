@@ -10,8 +10,9 @@ $link-decoration: none;
 
 //border
 $border-width: 2px;
-$border-radius: 16px;
-$border-radius-lg: 12px;
+$border-radius-sm: 8px;
+$border-radius: 12px;
+$border-radius-lg: 16px;
 $border-radius-xxl: 24px;
 
 //colors
@@ -34,6 +35,7 @@ $theme-colors: (
   "primary": $primary,
   "primary-light": $primary-light,
   "secondary": $gray-400,
+  "secondary-light": $gray-200,
   "light": $gray-100,
   "dark": $gray-700,
   "white": #fff,
@@ -89,3 +91,16 @@ $btn-font-weight: 700;
 //card
 $card-title-color: $primary;
 $card-spacer-y: 0;
+
+//form
+
+$form-text-font-weight: 400;
+$form-label-font-size: 20px;
+$form-label-font-weight: 700;
+$form-label-color: $gray-700;
+$input-padding-x: $input-btn-padding-y;
+$input-font-size: 18px;
+$input-bg: $gray-100;
+$input-border-width: 0;
+$input-border-radius: 0.5rem;
+$input-placeholder-color: $gray-500;

@@ -1,20 +1,66 @@
 <script setup lang="ts">
-  import Card from "../components/Card.vue";
-  import CardList from "../components/CardList.vue";
-  import Footer from "../components/Footer.vue";
-  import Marquee from "../components/Marquee.vue";
-  import Modal from "../components/Modal.vue";
-  import Navbar from "../components/Navbar.vue";
-  import { ref } from "vue";
-  const showModal = ref(false);
+  import IconFB from "@/assets/icons/IconFB.vue";
+  import Card from "@/components/Card.vue";
+  import CardList from "@/components/CardList.vue";
+  import Footer from "@/layout/Footer.vue";
+  import Marquee from "@/components/Marquee.vue";
+  import Modal from "@/layout/Modal.vue";
+  import Navbar from "@/layout/Navbar.vue";
+  import IconIG from "@/assets/icons/IconIG.vue";
+  import IconLine from "@/assets/icons/IconLine.vue";
+  import { onMounted, ref } from "vue";
+  import Post from "@/layout/Post.vue";
+  import { types } from "@/assets/data/data";
+  import { isEventArray, isPolicyArray } from "@/assets/data/guard";
+  const modalFlags = ref({
+    event1: false,
+    event2: false,
+    event3: false,
+    policy1: false,
+    policy2: false,
+    policy3: false,
+  });
+
+  export type ModalFlag = keyof typeof modalFlags.value;
+  const eventData = ref<types.Event[] | null>(null);
+  const policyData = ref<types.Policy[] | null>(null);
+
+  function getAPIsData(urls: string[]) {
+    const fetchData = (url: string) => fetch(url).then((response) => response.json());
+    Promise.all(urls.map(fetchData))
+      .then((data) => {
+        if (!isEventArray(data[0])) throw new Error("第一筆資料不是 Event[]");
+        if (!isPolicyArray(data[1])) throw new Error("第二筆資料不是 Policy[]");
+        return data;
+      })
+      .then((data) => {
+        eventData.value = data[0];
+        policyData.value = data[1];
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  function closeAllModal() {
+    for (let key in modalFlags.value) {
+      modalFlags.value[key as ModalFlag] = false;
+    }
+  }
+  function openRelatedModal(key: string) {
+    closeAllModal();
+    if (isModalFlag(key)) modalFlags.value[key] = true;
+  }
+  function isModalFlag(key: string): key is ModalFlag {
+    return key in modalFlags.value;
+  }
+
+  onMounted(() => {
+    getAPIsData(["src/assets/data/events.json", "src/assets/data/policy.json"]);
+  });
 </script>
 
 <template>
-  <Modal
-    :show="showModal"
-    @Close="showModal = false"
-  >
-  </Modal>
   <Navbar />
   <header class="border min-svh-100 vstack justify-content-end align-items-center position-relative overflow-x-hidden">
     <div class="text-center pt-24">
@@ -33,7 +79,7 @@
       </div>
     </div>
     <img
-      srcset="@images/portrait-1.png 723w, @images/portrait-1-sm.png 480w"
+      srcset="@img/portrait-1.png 723w, @img/portrait-1-sm.png 480w"
       sizes="(max-width: 992px) 480px, 723px"
       alt="我是喵立翰"
     />
@@ -44,24 +90,18 @@
     </Marquee>
     <ul class="d-flex d-sm-none list-unstyled gap-4 py-2 px-10 bg-white rounded-3 position-absolute bottom-0 mb-20">
       <li>
-        <a
-          class="icon icon-fb"
-          href="#"
-        >
+        <a href="#">
+          <IconFB />
         </a>
       </li>
       <li>
-        <a
-          class="icon icon-ig"
-          href="#"
-        >
+        <a href="#">
+          <IconIG />
         </a>
       </li>
       <li>
-        <a
-          class="icon icon-yt"
-          href="#"
-        >
+        <a href="#">
+          <IconLine />
         </a>
       </li>
     </ul>
@@ -80,7 +120,9 @@
               <h2 class="font-display text-primary-gradient">候選人主張</h2>
             </div>
             <h4>
-              我堅信 ! 藉由推動更完善的<a href="#">貓咪福利</a>和相關政策，更是間接地投資於<a href="#">台灣的未來</a>。
+              我堅信 ! 藉由推動更完善的<a href="#policyIssues">貓咪福利</a>和相關政策，更是間接地投資於<a href="#"
+                >台灣的未來</a
+              >。
             </h4>
             <p>
               畢竟，民眾的身心健康與工作熱情是推動經濟的核心動力。透過完善的貓咪福利政策，為台灣的 GDP
@@ -90,7 +132,7 @@
           </div>
           <img
             class="g-col-12 g-col-lg-6 w-100 h-100 object-fit-cover"
-            src="@images/proposition.png"
+            src="@img/proposition.png"
             alt="我的主張"
           />
         </div>
@@ -108,81 +150,91 @@
         <a
           href="#latestEvents"
           class="g-col-12 g-col-lg-6 link-dark"
-          @click="showModal = true"
+          @click="modalFlags.event3 = true"
         >
           <Card
-            date="2023/12/26"
-            title="參與台北寵物論壇，爭取貓咪友善環境"
-          >
-            <template #image>
-              <img
-                src="@images/last-event-3.png"
-                alt="活動照片"
-              />
-            </template>
-            炎炎夏日的周六，我走進了台北寵物論壇，帶著一副貓耳髮箍，決定要全力宣傳「貓咪至上」的理念！我相信，我們的都市中，每一隻貓咪都應該有自己的
-            VIP 休憩空間。
-          </Card>
+            v-if="eventData"
+            v-bind="eventData[2]"
+          />
+          <Card
+            v-else
+            img-url="src/assets/images/img-empty.svg"
+          />
         </a>
         <ul class="list-unstyled g-col-12 g-col-lg-6">
           <li class="mb-6">
+            <Modal
+              v-if="eventData"
+              :show="modalFlags.event1"
+              :title="eventData[0].category"
+              @close="closeAllModal"
+            >
+              <Post
+                name="event1"
+                :post-data="eventData"
+                @open-related-modal="openRelatedModal"
+              >
+              </Post>
+            </Modal>
             <a
               href="#latestEvents"
               class="link-dark"
-              @click="showModal = true"
+              @click="modalFlags.event1 = true"
             >
               <CardList
-                date="2023/12/24"
-                title="掃街模式開啟！帶著你的貓耳，來和我一起走！"
-              >
-                <template #image>
-                  <img
-                    src="@images/last-event-1.png"
-                    alt="活動照片"
-                  />
-                </template>
-                街上氣氛真的很棒，從小孩到大人，甚至有些狗狗朋友都帶著貓耳來找我握手，真的太可愛了！
-              </CardList>
+                v-if="eventData"
+                v-bind="eventData[0]"
+              />
             </a>
           </li>
           <li class="mb-6">
+            <Modal
+              v-if="eventData"
+              :show="modalFlags.event2"
+              :title="eventData[1].category"
+              @close="closeAllModal"
+            >
+              <Post
+                name="event2"
+                :post-data="eventData"
+                @open-related-modal="openRelatedModal"
+              >
+              </Post>
+            </Modal>
             <a
               href="#latestEvents"
               class="link-dark"
-              @click="showModal = true"
+              @click="modalFlags.event2 = true"
             >
               <CardList
-                date="2023/12/20"
-                title="收容所模特兒大比拼！"
-              >
-                <template #image>
-                  <img
-                    src="@images/last-event-2.png"
-                    alt="活動照片"
-                  />
-                </template>
-                今天的收容所不再是一片寂靜。為了讓更多人認識到這裡的毛孩子，我們舉辦了一場前所未有的「模特兒走秀」！
-              </CardList>
+                v-if="eventData"
+                v-bind="eventData[1]"
+              />
             </a>
           </li>
           <li class="mb-6">
+            <Modal
+              v-if="eventData"
+              :show="modalFlags.event3"
+              :title="eventData[2].category"
+              @close="closeAllModal"
+            >
+              <Post
+                name="event3"
+                :post-data="eventData"
+                @open-related-modal="openRelatedModal"
+              >
+              </Post>
+            </Modal>
             <a
               href="#latestEvents"
               class="link-dark"
-              @click="showModal = true"
+              @click="modalFlags.event3 = true"
             >
               <CardList
-                date="2023/12/26"
-                title="參與台北寵物論壇，爭取貓咪友善環境"
-              >
-                <template #image>
-                  <img
-                    src="@images/last-event-3.png"
-                    alt="活動照片"
-                  />
-                </template>
-                炎炎夏日的周六，我走進了台北寵物論壇，帶著一副貓耳髮箍，決定要全力宣傳「貓咪至上」的理念！
-              </CardList>
+                v-if="eventData"
+                v-bind="eventData[2]"
+              />
             </a>
           </li>
           <a
@@ -209,43 +261,85 @@
       </div>
       <ul class="list-unstyled grid row-gap-16 column-gap-6 column-gap-lg-16">
         <li class="g-col-12 g-col-md-6 g-col-lg-4">
+          <Modal
+            v-if="policyData"
+            :show="modalFlags.policy1"
+            :title="policyData[0].category"
+            @close="closeAllModal"
+          >
+            <Post
+              name="policy1"
+              :post-data="policyData"
+              @open-related-modal="openRelatedModal"
+            >
+            </Post>
+          </Modal>
           <a
-            href="#"
+            href="#policyIssues"
             class="link-dark"
+            @click="modalFlags.policy1 = true"
           >
             <h4 class="px-4 mb-4">為毛孩子謀福利！ 推動寵物醫療保障方案</h4>
 
             <img
               class="w-100 rounded-5"
-              src="@images/policy-1.png"
+              src="@img/policy-1.png"
               alt="政策1"
             />
           </a>
         </li>
         <li class="g-col-12 g-col-md-6 g-col-lg-4">
+          <Modal
+            v-if="policyData"
+            :show="modalFlags.policy2"
+            :title="policyData[1].category"
+            @close="closeAllModal"
+          >
+            <Post
+              name="policy2"
+              :post-data="policyData"
+              @open-related-modal="openRelatedModal"
+            >
+            </Post>
+          </Modal>
           <a
-            href="#"
+            href="#policyIssues"
             class="link-dark"
+            @click="modalFlags.policy2 = true"
           >
             <h4 class="px-4 mb-4">打造休閒天堂！ 推廣寵物休閒與娛樂場所</h4>
 
             <img
               class="w-100 rounded-5"
-              src="@images/policy-2.png"
+              src="@img/policy-2.png"
               alt="政策2"
             />
           </a>
         </li>
         <li class="g-col-12 g-col-md-6 g-col-lg-4">
+          <Modal
+            v-if="policyData"
+            :show="modalFlags.policy3"
+            :title="policyData[2].category"
+            @close="closeAllModal"
+          >
+            <Post
+              name="policy3"
+              :post-data="policyData"
+              @open-related-modal="openRelatedModal"
+            >
+            </Post>
+          </Modal>
           <a
-            href="#"
+            href="#policyIssues"
             class="link-dark"
+            @click="modalFlags.policy3 = true"
           >
             <h4 class="px-4 mb-4">推廣寵物飼養教育，讓愛更加專業</h4>
 
             <img
               class="w-100 rounded-5"
-              src="@images/policy-3.png"
+              src="@img/policy-3.png"
               alt="政策3"
             />
           </a>
@@ -273,7 +367,7 @@
           </a>
           <img
             class="min-w-100px"
-            src="@images/donate.png"
+            src="@img/donate.png"
             alt="捐款圖"
           />
         </div>
@@ -313,8 +407,5 @@
     </section>
   </main>
 
-  <!-- <span class="material-symbols-rounded"> arrow_forward </span> -->
   <Footer />
 </template>
-
-<style scoped lang="scss"></style>

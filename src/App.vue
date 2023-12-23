@@ -1,9 +1,10 @@
 <script setup lang="ts">
+  // import Test from "./views/Test.vue";
   import Home from "./views/Home.vue";
 </script>
 
 <template>
-  <Home />
+  <component :is="Home" />
 </template>
 
 <style lang="scss">
@@ -56,7 +57,7 @@
   // @import "../node_modules/bootstrap/scss/carousel";
   // @import "../node_modules/bootstrap/scss/spinners";
   @import "../node_modules/bootstrap/scss/offcanvas";
-  // @import "../node_modules/bootstrap/scss/placeholders";
+  @import "../node_modules/bootstrap/scss/placeholders";
   @import "../node_modules/bootstrap/scss/helpers";
 
   /* 在此處添加其他自定義代碼 */
