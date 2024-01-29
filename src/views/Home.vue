@@ -9,9 +9,11 @@
   import IconIG from "@/assets/icons/IconIG.vue";
   import IconLine from "@/assets/icons/IconLine.vue";
   import { onMounted, ref } from "vue";
-  import Post from "@/components/Post.vue";
+  import ArticlePost from "@/layout/ArticlePost.vue";
   import { types } from "@/types/data";
   import { isEventArray, isPolicyArray } from "@/helpers/typeGuard";
+  import ModalDonate from "@/layout/ModalDonate.vue";
+  import ModalFeedBack from "@/layout/ModalFeedBack.vue";
   const modalFlags = ref({
     event1: false,
     event2: false,
@@ -19,6 +21,8 @@
     policy1: false,
     policy2: false,
     policy3: false,
+    donate: false,
+    feedback: false,
   });
 
   export type ModalFlag = keyof typeof modalFlags.value;
@@ -169,12 +173,12 @@
               :title="eventData[0].category"
               @close="closeAllModal"
             >
-              <Post
+              <ArticlePost
                 name="event1"
                 :post-data="eventData"
                 @open-related-modal="openRelatedModal"
               >
-              </Post>
+              </ArticlePost>
             </Modal>
             <a
               href="#latestEvents"
@@ -194,12 +198,12 @@
               :title="eventData[1].category"
               @close="closeAllModal"
             >
-              <Post
+              <ArticlePost
                 name="event2"
                 :post-data="eventData"
                 @open-related-modal="openRelatedModal"
               >
-              </Post>
+              </ArticlePost>
             </Modal>
             <a
               href="#latestEvents"
@@ -219,12 +223,12 @@
               :title="eventData[2].category"
               @close="closeAllModal"
             >
-              <Post
+              <ArticlePost
                 name="event3"
                 :post-data="eventData"
                 @open-related-modal="openRelatedModal"
               >
-              </Post>
+              </ArticlePost>
             </Modal>
             <a
               href="#latestEvents"
@@ -267,12 +271,12 @@
             :title="policyData[0].category"
             @close="closeAllModal"
           >
-            <Post
+            <ArticlePost
               name="policy1"
               :post-data="policyData"
               @open-related-modal="openRelatedModal"
             >
-            </Post>
+            </ArticlePost>
           </Modal>
           <a
             href="#policyIssues"
@@ -295,12 +299,12 @@
             :title="policyData[1].category"
             @close="closeAllModal"
           >
-            <Post
+            <ArticlePost
               name="policy2"
               :post-data="policyData"
               @open-related-modal="openRelatedModal"
             >
-            </Post>
+            </ArticlePost>
           </Modal>
           <a
             href="#policyIssues"
@@ -323,12 +327,12 @@
             :title="policyData[2].category"
             @close="closeAllModal"
           >
-            <Post
+            <ArticlePost
               name="policy3"
               :post-data="policyData"
               @open-related-modal="openRelatedModal"
             >
-            </Post>
+            </ArticlePost>
           </Modal>
           <a
             href="#policyIssues"
@@ -355,8 +359,9 @@
         <p class="fs-5 fw-semibold mb-6 mb-lg-0">您的小筆捐款，是每隻毛孩未來的大大動力！</p>
         <div class="hstack justify-content-between gap-10">
           <a
-            href="#"
+            href="#modalDonate"
             class="btn btn-white icon-link icon-link-hover align-self-lg-end text-nowrap"
+            @click="modalFlags.donate = true"
             >小額捐款
             <span
               class="bi material-symbols-rounded"
@@ -372,12 +377,18 @@
           />
         </div>
       </div>
+      <ModalDonate
+        id="modalDonate"
+        :show="modalFlags.donate"
+        @close="closeAllModal"
+      />
       <div class="g-col-12 g-col-md-6 vstack py-10 px-6 p-lg-24 bg-dark text-white rounded-5">
         <h3 class="font-display fs-40px fs-lg-52px mb-4">民眾服務信箱</h3>
         <p class="fs-5 fw-semibold mb-16">親愛的鄉親，每一位市民的意見都是我們社區前進的原動力</p>
         <a
-          href="#"
+          href="#modalFeedBack"
           class="btn btn-white icon-link icon-link-hover align-self-start mt-auto text-nowrap"
+          @click="modalFlags.feedback = true"
           >填寫表單
           <span
             class="bi material-symbols-rounded"
@@ -387,6 +398,11 @@
           </span>
         </a>
       </div>
+      <ModalFeedBack
+        id="modalFeedBack"
+        :show="modalFlags.feedback"
+        @close="closeAllModal"
+      />
     </section>
     <section
       id="slogan"

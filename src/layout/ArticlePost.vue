@@ -73,7 +73,10 @@
         v-else-if="thisPost.category === '政策議題'"
         class="mb-24"
       >
-        <template v-for="content in (thisPost.content as types.PolicyContent[])">
+        <template
+          v-for="content in (thisPost.content as types.PolicyContent[])"
+          :key="content.description"
+        >
           <ul class="list-unstyled">
             <h5 class="mb-2">{{ content.policy }}</h5>
             <li class="mb-6">
@@ -88,7 +91,10 @@
       >
         <h6 class="g-col-12">更多{{ thisPost.category }}</h6>
 
-        <template v-for="id of thisPost.relatedID">
+        <template
+          v-for="id of thisPost.relatedID"
+          :key="id"
+        >
           <li class="g-col-6 g-col-lg-4">
             <a
               class="link-dark cursor-pointer"

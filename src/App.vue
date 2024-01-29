@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  // import Test from "./views/Test.vue";
   import Home from "./views/Home.vue";
 </script>
 

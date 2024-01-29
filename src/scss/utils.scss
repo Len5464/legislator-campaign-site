@@ -2,7 +2,9 @@
   min-height: 100vh;
   min-height: 100svh;
 }
-
+.mh-350px {
+  max-height: 350px;
+}
 .circle-mark {
   display: inline-block;
   width: 50px;
@@ -41,6 +43,16 @@
 .cursor-pointer {
   cursor: pointer;
 }
+.transition-3 {
+  transition: all 0.3s ease-in-out;
+}
+
+input:checked {
+  & + .border-primary-on-checked {
+    border-color: $primary !important;
+  }
+}
+
 $utilities: map-merge(
   $utilities,
   (
@@ -86,6 +98,7 @@ $utilities: map-merge(
               map-get(map-get($utilities, "gap"), "values"),
               (
                 8: 32px,
+                "10px": 10px,
               )
             ),
         )
@@ -99,6 +112,7 @@ $utilities: map-merge(
               map-get(map-get($utilities, "max-width"), "values"),
               (
                 "723px": 723px,
+                "730px": 730px,
               )
             ),
         )
@@ -131,13 +145,6 @@ $utilities: map-merge(
                 "52px": 52px,
               )
             ),
-        )
-      ),
-    "border-color":
-      map-merge(
-        map-get($utilities, "border-color"),
-        (
-          state: hover,
         )
       ),
   )
