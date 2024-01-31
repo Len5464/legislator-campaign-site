@@ -18,7 +18,7 @@
 </script>
 <template>
   <Modal
-    title="小額捐款"
+    title="民眾服務信箱"
     :show="true"
   >
     <div class="d-flex flex-column flex-xl-row align-items-center align-items-xl-start gap-8 w-100">

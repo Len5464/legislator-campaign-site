@@ -26,7 +26,7 @@
   >
     <aside class="min-w-340px min-w-xxl-507px">
       <img
-        class="mb-4 mx-auto rounded-4 w-100 aspect-ratio-16x9 object-fit-cover"
+        class="mb-4 mx-auto rounded-4 w-100 aspect-ratio-16x10 object-fit-cover"
         :src="thisPost.imgUrl"
         alt="活動照片"
       />

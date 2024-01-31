@@ -43,9 +43,6 @@
 .cursor-pointer {
   cursor: pointer;
 }
-.transition-3 {
-  transition: all 0.3s ease-in-out;
-}
 
 input:checked {
   & + .border-primary-on-checked {
@@ -113,6 +110,7 @@ $utilities: map-merge(
               (
                 "723px": 723px,
                 "730px": 730px,
+                "507px": 507px,
               )
             ),
         )

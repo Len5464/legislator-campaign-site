@@ -66,7 +66,10 @@
 
 <template>
   <Navbar />
-  <header class="border min-svh-100 vstack justify-content-end align-items-center position-relative overflow-x-hidden">
+  <header
+    id="header"
+    class="border min-svh-100 vstack justify-content-end align-items-center position-relative overflow-x-hidden"
+  >
     <div class="text-center pt-24">
       <h1
         class="d-flex flex-column flex-lg-row justify-content-center bg-primary-light font-display text-primary-gradient mb-4"
@@ -82,11 +85,16 @@
         </h2>
       </div>
     </div>
-    <img
-      srcset="/images/portrait-1.png 723w, /images/portrait-1-sm.png 480w"
-      sizes="(max-width: 992px) 480px, 723px"
-      alt="我是喵立翰"
-    />
+    <Transition
+      :appear="true"
+      name="bounce"
+    >
+      <img
+        srcset="/images/portrait-1.png 723w, /images/portrait-1-sm.png 480w"
+        sizes="(max-width: 992px) 480px, 723px"
+        alt="我是喵立翰"
+      />
+    </Transition>
     <Marquee>
       <span class="me-6">為喵星人，護台灣！</span>
       <span class="me-6">從喵的眼中，看見台灣</span>
@@ -359,7 +367,7 @@
         <p class="fs-5 fw-semibold mb-6 mb-lg-0">您的小筆捐款，是每隻毛孩未來的大大動力！</p>
         <div class="hstack justify-content-between gap-10">
           <a
-            href="#modalDonate"
+            href="#callToAction"
             class="btn btn-white icon-link icon-link-hover align-self-lg-end text-nowrap"
             @click="modalFlags.donate = true"
             >小額捐款
@@ -378,7 +386,6 @@
         </div>
       </div>
       <ModalDonate
-        id="modalDonate"
         :show="modalFlags.donate"
         @close="closeAllModal"
       />
@@ -386,7 +393,7 @@
         <h3 class="font-display fs-40px fs-lg-52px mb-4">民眾服務信箱</h3>
         <p class="fs-5 fw-semibold mb-16">親愛的鄉親，每一位市民的意見都是我們社區前進的原動力</p>
         <a
-          href="#modalFeedBack"
+          href="#callToAction"
           class="btn btn-white icon-link icon-link-hover align-self-start mt-auto text-nowrap"
           @click="modalFlags.feedback = true"
           >填寫表單
@@ -399,7 +406,6 @@
         </a>
       </div>
       <ModalFeedBack
-        id="modalFeedBack"
         :show="modalFlags.feedback"
         @close="closeAllModal"
       />
@@ -425,4 +431,11 @@
 
   <Footer />
 </template>
-@/assets/data/utils
+<style>
+  .bounce-enter-active {
+    animation: bounce-in 1.3s;
+  }
+  .bounce-leave-active {
+    animation: bounce-in 1.3s reverse;
+  }
+</style>

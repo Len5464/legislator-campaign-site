@@ -10,7 +10,7 @@
   <Teleport to="body">
     <Transition
       name="modal"
-      mode="in-out"
+      mode="out-in"
     >
       <div
         v-if="show"
@@ -54,6 +54,7 @@
 
   .modal-container {
     width: 80vw;
+    max-width: 1400px;
     height: calc(100vh - 48px);
     margin: auto;
     background-color: #fff;
@@ -98,9 +99,11 @@
     }
   }
 
-  .modal-enter-from .modal-container,
-  .modal-leave-to .modal-container {
-    -webkit-transform: translateY(100%);
-    transform: translateY(100%);
+  .modal-enter-from,
+  .modal-leave-to {
+    .modal-container {
+      -webkit-transform: translateY(100%);
+      transform: translateY(100%);
+    }
   }
 </style>

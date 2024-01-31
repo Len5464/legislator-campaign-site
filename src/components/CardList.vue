@@ -2,7 +2,6 @@
   import { types } from "@/types/data";
 
   const props = defineProps<types.Event>();
-  console.log(import.meta.env.BASE_URL);
 </script>
 
 <template>

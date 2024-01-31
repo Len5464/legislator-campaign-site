@@ -1,10 +1,13 @@
 <script setup lang="ts">
   import IconFB from "@/assets/icons/IconFB.vue";
   import IconIG from "@/assets/icons/IconIG.vue";
-  import IconLine from "@/assets/icons/IconLine.vue";
+  import IconYT from "@/assets/icons/IconYT.vue";
 </script>
 <template>
-  <footer class="bg-primary-light py-16">
+  <footer
+    id="footer"
+    class="bg-primary-light py-16"
+  >
     <div class="container grid">
       <div class="g-col-12 g-col-lg-6 vstack gap-4">
         <h2 class="hstack gap-2 text-primary fs-3">
@@ -24,7 +27,7 @@
           </li>
           <li class="p-10px bg-white rounded rounded-circle">
             <a href="https://www.youtube.com">
-              <IconLine />
+              <IconYT />
             </a>
           </li>
         </ul>
