@@ -1,4 +1,4 @@
-export declare namespace types {
+export declare namespace data {
   type Event = {
     id: string;
     title: string;
@@ -29,5 +29,11 @@ export declare namespace types {
     category: string;
     totalMoney: number;
     plan: DonationPlan[];
+  };
+}
+export declare namespace general {
+  type FetchResult<T> = {
+    data: Ref<T | null>;
+    error: Ref<Error | null>;
   };
 }

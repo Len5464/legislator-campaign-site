@@ -8,60 +8,50 @@
   import Navbar from "@/layout/Navbar.vue";
   import IconIG from "@/assets/icons/IconIG.vue";
   import IconLine from "@/assets/icons/IconLine.vue";
-  import { onMounted, ref } from "vue";
+  import { reactive } from "vue";
   import ArticlePost from "@/layout/ArticlePost.vue";
-  import { types } from "@/types/data";
-  import { isEventArray, isPolicyArray } from "@/helpers/typeGuard";
+  import { data } from "@/types/type";
   import ModalDonate from "@/layout/ModalDonate.vue";
   import ModalFeedBack from "@/layout/ModalFeedBack.vue";
-  const modalFlags = ref({
-    event1: false,
-    event2: false,
-    event3: false,
-    policy1: false,
-    policy2: false,
-    policy3: false,
-    donate: false,
-    feedback: false,
+  import { useFetch } from "@/helpers/fetch";
+
+  const state = reactive({
+    modal: {
+      event1: false,
+      event2: false,
+      event3: false,
+      policy1: false,
+      policy2: false,
+      policy3: false,
+      donate: false,
+      feedback: false,
+    },
   });
 
-  export type ModalFlag = keyof typeof modalFlags.value;
-  const eventData = ref<types.Event[] | null>(null);
-  const policyData = ref<types.Policy[] | null>(null);
+  export type ModalFlag = keyof typeof state.modal;
 
-  function getAPIsData(urls: string[]) {
-    const fetchData = (url: string) => fetch(url).then((response) => response.json());
-    Promise.all(urls.map(fetchData))
-      .then((data) => {
-        if (!isEventArray(data[0])) throw new Error("第一筆資料不是 Event[]");
-        if (!isPolicyArray(data[1])) throw new Error("第二筆資料不是 Policy[]");
-        return data;
-      })
-      .then((data) => {
-        eventData.value = data[0];
-        policyData.value = data[1];
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
+  const { data: eventData, error: eventFetchError } = useFetch<data.Event[]>(
+    "/legislator-campaign-site/data/events.json"
+  );
+  const { data: policyData, error: policyFetchError } = useFetch<data.Policy[]>(
+    "/legislator-campaign-site/data/policy.json"
+  );
+
+  if (eventFetchError.value) throw eventFetchError.value;
+  if (policyFetchError.value) throw policyFetchError.value;
 
   function closeAllModal() {
-    for (let key in modalFlags.value) {
-      modalFlags.value[key as ModalFlag] = false;
+    for (let key in state.modal) {
+      state.modal[key as ModalFlag] = false;
     }
   }
   function openRelatedModal(key: string) {
     closeAllModal();
-    if (isModalFlag(key)) modalFlags.value[key] = true;
+    if (isModalFlag(key)) state.modal[key] = true;
   }
   function isModalFlag(key: string): key is ModalFlag {
-    return key in modalFlags.value;
+    return key in state.modal;
   }
-
-  onMounted(() => {
-    getAPIsData(["/legislator-campaign-site/data/events.json", "/legislator-campaign-site/data/policy.json"]);
-  });
 </script>
 
 <template>
@@ -162,7 +152,7 @@
         <a
           href="#latestEvents"
           class="g-col-12 g-col-lg-6 link-dark"
-          @click="modalFlags.event3 = true"
+          @click="state.modal.event3 = true"
         >
           <Card
             v-if="eventData"
@@ -177,7 +167,7 @@
           <li class="mb-6">
             <Modal
               v-if="eventData"
-              :show="modalFlags.event1"
+              :show="state.modal.event1"
               :title="eventData[0].category"
               @close="closeAllModal"
             >
@@ -191,7 +181,7 @@
             <a
               href="#latestEvents"
               class="link-dark"
-              @click="modalFlags.event1 = true"
+              @click="state.modal.event1 = true"
             >
               <CardList
                 v-if="eventData"
@@ -202,7 +192,7 @@
           <li class="mb-6">
             <Modal
               v-if="eventData"
-              :show="modalFlags.event2"
+              :show="state.modal.event2"
               :title="eventData[1].category"
               @close="closeAllModal"
             >
@@ -216,7 +206,7 @@
             <a
               href="#latestEvents"
               class="link-dark"
-              @click="modalFlags.event2 = true"
+              @click="state.modal.event2 = true"
             >
               <CardList
                 v-if="eventData"
@@ -227,7 +217,7 @@
           <li class="mb-6">
             <Modal
               v-if="eventData"
-              :show="modalFlags.event3"
+              :show="state.modal.event3"
               :title="eventData[2].category"
               @close="closeAllModal"
             >
@@ -241,7 +231,7 @@
             <a
               href="#latestEvents"
               class="link-dark"
-              @click="modalFlags.event3 = true"
+              @click="state.modal.event3 = true"
             >
               <CardList
                 v-if="eventData"
@@ -275,7 +265,7 @@
         <li class="g-col-12 g-col-md-6 g-col-lg-4">
           <Modal
             v-if="policyData"
-            :show="modalFlags.policy1"
+            :show="state.modal.policy1"
             :title="policyData[0].category"
             @close="closeAllModal"
           >
@@ -289,7 +279,7 @@
           <a
             href="#policyIssues"
             class="link-dark"
-            @click="modalFlags.policy1 = true"
+            @click="state.modal.policy1 = true"
           >
             <h4 class="px-4 mb-4">為毛孩子謀福利！ 推動寵物醫療保障方案</h4>
 
@@ -303,7 +293,7 @@
         <li class="g-col-12 g-col-md-6 g-col-lg-4">
           <Modal
             v-if="policyData"
-            :show="modalFlags.policy2"
+            :show="state.modal.policy2"
             :title="policyData[1].category"
             @close="closeAllModal"
           >
@@ -317,7 +307,7 @@
           <a
             href="#policyIssues"
             class="link-dark"
-            @click="modalFlags.policy2 = true"
+            @click="state.modal.policy2 = true"
           >
             <h4 class="px-4 mb-4">打造休閒天堂！ 推廣寵物休閒與娛樂場所</h4>
 
@@ -331,7 +321,7 @@
         <li class="g-col-12 g-col-md-6 g-col-lg-4">
           <Modal
             v-if="policyData"
-            :show="modalFlags.policy3"
+            :show="state.modal.policy3"
             :title="policyData[2].category"
             @close="closeAllModal"
           >
@@ -345,7 +335,7 @@
           <a
             href="#policyIssues"
             class="link-dark"
-            @click="modalFlags.policy3 = true"
+            @click="state.modal.policy3 = true"
           >
             <h4 class="px-4 mb-4">推廣寵物飼養教育，讓愛更加專業</h4>
 
@@ -369,7 +359,7 @@
           <a
             href="#callToAction"
             class="btn btn-white icon-link icon-link-hover align-self-lg-end text-nowrap"
-            @click="modalFlags.donate = true"
+            @click="state.modal.donate = true"
             >小額捐款
             <span
               class="bi material-symbols-rounded"
@@ -386,7 +376,7 @@
         </div>
       </div>
       <ModalDonate
-        :show="modalFlags.donate"
+        :show="state.modal.donate"
         @close="closeAllModal"
       />
       <div class="g-col-12 g-col-md-6 vstack py-10 px-6 p-lg-24 bg-dark text-white rounded-5">
@@ -395,7 +385,7 @@
         <a
           href="#callToAction"
           class="btn btn-white icon-link icon-link-hover align-self-start mt-auto text-nowrap"
-          @click="modalFlags.feedback = true"
+          @click="state.modal.feedback = true"
           >填寫表單
           <span
             class="bi material-symbols-rounded"
@@ -406,7 +396,7 @@
         </a>
       </div>
       <ModalFeedBack
-        :show="modalFlags.feedback"
+        :show="state.modal.feedback"
         @close="closeAllModal"
       />
     </section>

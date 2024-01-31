@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { types } from "@/types/data";
+  import { data } from "@/types/type";
 
-  const props = defineProps<types.Event>();
+  const props = defineProps<data.Event>();
 </script>
 
 <template>

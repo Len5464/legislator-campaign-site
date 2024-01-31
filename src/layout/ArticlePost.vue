@@ -1,19 +1,20 @@
 <script setup lang="ts">
-  import { types } from "@/types/data";
   import IconFB from "@/assets/icons/IconFB.vue";
   import IconIG from "@/assets/icons/IconIG.vue";
   import IconLine from "@/assets/icons/IconLine.vue";
   import IconTwitter from "@/assets/icons/IconTwitter.vue";
+  import { data } from "@/types/type";
   import { ModalFlag } from "@/views/Home.vue";
+
   export type PostProps = {
-    postData: types.Event[] | types.Policy[];
+    postData: data.Event[] | data.Policy[];
     name: ModalFlag;
   };
   const props = defineProps<PostProps>();
   const emit = defineEmits<{
     openRelatedModal: [key: string];
   }>();
-  function findPostByID(id: string): types.Event | types.Policy | undefined {
+  function findPostByID(id: string): data.Event | data.Policy | undefined {
     return props.postData.find((post) => post.id === id);
   }
   const thisPost = findPostByID(props.name);
@@ -74,7 +75,7 @@
         class="mb-24"
       >
         <template
-          v-for="content in (thisPost.content as types.PolicyContent[])"
+          v-for="content in (thisPost.content as data.PolicyContent[])"
           :key="content.description"
         >
           <ul class="list-unstyled">
