@@ -354,7 +354,7 @@
     >
       <div class="g-col-12 g-col-md-6 py-10 px-6 p-lg-24 bg-primary text-white rounded-5">
         <h3 class="font-display fs-40px fs-lg-52px mb-4">小額支持喵喵</h3>
-        <p class="fs-5 fw-semibold mb-6 mb-lg-0">您的小筆捐款，是每隻毛孩未來的大大動力！</p>
+        <p class="fs-5 fw-semibold mb-6">您的小筆捐款，是每隻毛孩未來的大大動力！</p>
         <div class="hstack justify-content-between gap-10">
           <a
             href="#callToAction"
@@ -381,7 +381,7 @@
       />
       <div class="g-col-12 g-col-md-6 vstack py-10 px-6 p-lg-24 bg-dark text-white rounded-5">
         <h3 class="font-display fs-40px fs-lg-52px mb-4">民眾服務信箱</h3>
-        <p class="fs-5 fw-semibold mb-16">親愛的鄉親，每一位市民的意見都是我們社區前進的原動力</p>
+        <p class="fs-5 fw-semibold mb-16 mb-md-auto">親愛的鄉親，每一位市民的意見都是我們社區前進的原動力</p>
         <a
           href="#callToAction"
           class="btn btn-white icon-link icon-link-hover align-self-start mt-auto text-nowrap"

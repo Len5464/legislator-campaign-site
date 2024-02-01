@@ -1,17 +1,20 @@
 <script setup lang="ts">
+  import { watchEffect } from "vue";
+
   const props = defineProps<{ title: string; show: boolean }>();
   const emit = defineEmits(["close"]);
   const close = (event: Event) => {
     if (event.target === event.currentTarget) emit("close");
   };
+  watchEffect(() => {
+    if (props.show) document.body.style.overflow = "hidden"; // 禁止背景頁面捲動
+    else document.body.style.overflow = "";
+  });
 </script>
 
 <template>
   <Teleport to="body">
-    <Transition
-      name="modal"
-      mode="out-in"
-    >
+    <Transition name="modal">
       <div
         v-if="show"
         class="mask"
@@ -45,38 +48,38 @@
     z-index: 9998;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    padding: 48px;
     background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
+    @media screen and (max-width: 992px) {
+      padding: 0;
+    }
   }
 
   .modal-container {
-    width: 80vw;
-    max-width: 1400px;
-    height: calc(100vh - 48px);
-    margin: auto;
     background-color: #fff;
     border-radius: 24px;
+    width: 80vw;
+    max-width: 1400px;
+    height: 100%;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     transition: all 0.3s ease;
-    overflow-y: scroll;
-    @media screen and (max-width: 540px) {
+    @media screen and (max-width: 992px) {
       width: 100vw;
-      height: 100vh;
-      height: 100svh;
-      border-radius: 0px;
     }
   }
   .header {
-    background-color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
     padding: 24px 48px;
-    position: sticky;
-    top: 0;
     @media screen and (max-width: 540px) {
       padding: 16px 16px 8px 16px;
     }
@@ -87,20 +90,20 @@
     height: 32px;
     background-color: transparent;
     border: none;
+    color: black;
   }
   .body {
-    display: flex;
-    align-items: stretch;
     padding: 8px 48px 48px 48px;
-    gap: 32px;
+    flex: 1 1 auto;
+    overflow-y: scroll;
     @media screen and (max-width: 1140px) {
       padding: 8px 16px 16px 16px;
-      flex-direction: column;
     }
   }
 
   .modal-enter-from,
   .modal-leave-to {
+    opacity: 0;
     .modal-container {
       -webkit-transform: translateY(100%);
       transform: translateY(100%);

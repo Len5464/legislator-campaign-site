@@ -96,7 +96,7 @@
           v-for="id of thisPost.relatedID"
           :key="id"
         >
-          <li class="g-col-6 g-col-lg-4">
+          <li class="g-col-6 g-col-sm-4">
             <a
               class="link-dark cursor-pointer"
               @click="emit('openRelatedModal', id)"

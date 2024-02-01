@@ -87,7 +87,7 @@
   <Transition name="slide">
     <ul
       v-show="!isHeaderShown && !isFooterShown"
-      class="w-100 hstack border py-4 justify-content-center gap-4 list-unstyled fs-10px bg-white-blur position-fixed bottom-0 z-1 d-xl-none"
+      class="w-100 hstack py-4 justify-content-center gap-4 list-unstyled fs-10px bg-white-blur position-fixed bottom-0 z-2 d-xl-none"
     >
       <li>
         <a
