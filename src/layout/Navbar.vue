@@ -6,8 +6,8 @@
 </script>
 
 <template>
-  <nav class="navbar bg-white-blur position-fixed w-100 px-9 py-4 z-1">
-    <div class="container-fluid">
+  <nav class="navbar position-fixed w-100 px-6 py-4 z-1 d-none d-xl-block">
+    <div class="container-fluid bg-white-blur rounded-3 py-3 px-6">
       <a
         class="navbar-brand hstack gap-2"
         href="#"

@@ -72,6 +72,7 @@
     transition: all 0.3s ease;
     @media screen and (max-width: 992px) {
       width: 100vw;
+      border-radius: 0px;
     }
   }
   .header {
@@ -90,7 +91,7 @@
     height: 32px;
     background-color: transparent;
     border: none;
-    color: black;
+    color: #334155;
   }
   .body {
     padding: 8px 48px 48px 48px;

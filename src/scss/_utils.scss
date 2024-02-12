@@ -1,10 +1,15 @@
-.min-svh-100 {
-  min-height: 100vh;
-  min-height: 100svh;
+.dvh-100 {
+  height: 100vh;
+  height: 100dvh;
 }
 
-.mh-350px {
-  max-height: 350px;
+.h-126px {
+  height: 126px;
+}
+.h-lg-241px {
+  @include media-breakpoint-up(lg) {
+    height: 241px;
+  }
 }
 .circle-mark {
   display: inline-block;
@@ -54,14 +59,50 @@ input:checked {
 $utilities: map-merge(
   $utilities,
   (
+    "max-width":
+      map-merge(
+        map-get($utilities, "max-width"),
+        (
+          values:
+            map-merge(
+              map-get(map-get($utilities, "max-width"), "values"),
+              (
+                "723px": 723px,
+                "730px": 730px,
+                "507px": 507px,
+              )
+            ),
+        )
+      ),
+    "max-height":
+      map-merge(
+        map-get($utilities, "max-height"),
+        (
+          values:
+            map-merge(
+              map-get(map-get($utilities, "max-height"), "values"),
+              (
+                "350px": 350px,
+              )
+            ),
+        )
+      ),
     "min-width": (
       property: min-width,
       class: min-w,
       responsive: true,
       values: (
-        "100px": 100px,
+        "128px": 128px,
         "340px": 340px,
         "507px": 507px,
+      ),
+    ),
+    "min-height": (
+      property: min-height,
+      class: min-h,
+      responsive: true,
+      values: (
+        "255px": 255px,
       ),
     ),
     "aspect-ratio": (
@@ -97,21 +138,6 @@ $utilities: map-merge(
               (
                 8: 32px,
                 "10px": 10px,
-              )
-            ),
-        )
-      ),
-    "max-width":
-      map-merge(
-        map-get($utilities, "max-width"),
-        (
-          values:
-            map-merge(
-              map-get(map-get($utilities, "max-width"), "values"),
-              (
-                "723px": 723px,
-                "730px": 730px,
-                "507px": 507px,
               )
             ),
         )

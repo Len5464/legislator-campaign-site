@@ -58,7 +58,7 @@
   <Navbar />
   <header
     id="header"
-    class="border min-svh-100 vstack justify-content-end align-items-center position-relative overflow-x-hidden"
+    class="border dvh-100 vstack justify-content-end align-items-center position-relative overflow-x-hidden"
   >
     <div class="text-center pt-24">
       <h1
@@ -80,6 +80,7 @@
       name="bounce"
     >
       <img
+        class="mh-100 min-h-255px"
         srcset="/images/portrait-1.png 723w, /images/portrait-1-sm.png 480w"
         sizes="(max-width: 992px) 480px, 723px"
         alt="我是喵立翰"
@@ -352,13 +353,13 @@
       id="callToAction"
       class="container py-16 py-lg-26 grid"
     >
-      <div class="g-col-12 g-col-md-6 py-10 px-6 p-lg-24 bg-primary text-white rounded-5">
+      <div class="g-col-12 g-col-md-6 py-10 px-6 p-xl-24 bg-primary text-white rounded-5">
         <h3 class="font-display fs-40px fs-lg-52px mb-4">小額支持喵喵</h3>
         <p class="fs-5 fw-semibold mb-6">您的小筆捐款，是每隻毛孩未來的大大動力！</p>
-        <div class="hstack justify-content-between gap-10">
+        <div class="h-126px h-lg-241px hstack justify-content-between gap-2">
           <a
             href="#callToAction"
-            class="btn btn-white icon-link icon-link-hover align-self-lg-end text-nowrap"
+            class="btn btn-white icon-link icon-link-hover text-nowrap"
             @click="state.modal.donate = true"
             >小額捐款
             <span
@@ -369,9 +370,11 @@
             </span>
           </a>
           <img
-            class="min-w-100px"
-            src="/images/donate.png"
-            alt="捐款圖"
+            class="min-w-128px mh-100"
+            src="/images/donate-sm.png"
+            srcset="/images/donate.png 1200w"
+            sizes="(min-width: 1200px) 1200px, 100vw"
+            alt="捐款示意圖"
           />
         </div>
       </div>
@@ -379,21 +382,30 @@
         :show="state.modal.donate"
         @close="closeAllModal"
       />
-      <div class="g-col-12 g-col-md-6 vstack py-10 px-6 p-lg-24 bg-dark text-white rounded-5">
+      <div class="g-col-12 g-col-md-6 vstack py-10 px-6 p-xl-24 bg-dark text-white rounded-5">
         <h3 class="font-display fs-40px fs-lg-52px mb-4">民眾服務信箱</h3>
         <p class="fs-5 fw-semibold mb-16 mb-md-auto">親愛的鄉親，每一位市民的意見都是我們社區前進的原動力</p>
-        <a
-          href="#callToAction"
-          class="btn btn-white icon-link icon-link-hover align-self-start mt-auto text-nowrap"
-          @click="state.modal.feedback = true"
-          >填寫表單
-          <span
-            class="bi material-symbols-rounded"
-            aria-hidden="true"
-          >
-            arrow_forward
-          </span>
-        </a>
+        <div class="h-126px h-lg-241px hstack justify-content-between gap-2">
+          <a
+            href="#callToAction"
+            class="btn btn-white icon-link icon-link-hover text-nowrap"
+            @click="state.modal.feedback = true"
+            >填寫表單
+            <span
+              class="bi material-symbols-rounded"
+              aria-hidden="true"
+            >
+              arrow_forward
+            </span>
+          </a>
+          <img
+            class="min-w-128px mh-100"
+            src="/images/mail-sm.png"
+            srcset="/images/mail.png 1200w"
+            sizes="(min-width: 1200px) 1200px, 100vw"
+            alt="填寫表單示意圖"
+          />
+        </div>
       </div>
       <ModalFeedBack
         :show="state.modal.feedback"
