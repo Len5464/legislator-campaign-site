@@ -8,12 +8,14 @@
   import Navbar from "@/layout/Navbar.vue";
   import IconIG from "@/assets/icons/IconIG.vue";
   import IconLine from "@/assets/icons/IconLine.vue";
-  import { reactive } from "vue";
+  import { onMounted, reactive } from "vue";
   import ArticlePost from "@/layout/ArticlePost.vue";
   import { data } from "@/types/type";
   import ModalDonate from "@/layout/ModalDonate.vue";
   import ModalFeedBack from "@/layout/ModalFeedBack.vue";
   import { useFetch } from "@/helpers/fetch";
+  import LoadingMask from "@/components/LoadingMask.vue";
+  import { useBoundingCheck } from "@/helpers/boundingChecker";
 
   const state = reactive({
     modal: {
@@ -26,9 +28,11 @@
       donate: false,
       feedback: false,
     },
+    pageReady: false,
   });
 
   export type ModalFlag = keyof typeof state.modal;
+  const isSloganScrollIn = useBoundingCheck("#slogan");
 
   const { data: eventData, error: eventFetchError } = useFetch<data.Event[]>(
     "/legislator-campaign-site/data/events.json"
@@ -52,34 +56,43 @@
   function isModalFlag(key: string): key is ModalFlag {
     return key in state.modal;
   }
+  onMounted(() => {
+    setTimeout(() => {
+      state.pageReady = true;
+    }, 1500);
+  });
 </script>
 
 <template>
+  <LoadingMask :show="!state.pageReady" />
   <Navbar />
   <header
     id="header"
     class="border dvh-100 vstack justify-content-end align-items-center position-relative overflow-x-hidden"
   >
-    <div class="text-center pt-24">
-      <h1
-        class="d-flex flex-column flex-lg-row justify-content-center bg-primary-light font-display text-primary-gradient mb-4"
+    <Transition name="fade-in-up">
+      <div
+        v-show="state.pageReady"
+        class="text-center pt-24"
       >
-        <span class="me-lg-4">台灣的明天</span>
-        <span>喵先鋪路</span>
-      </h1>
-      <div class="hstack flex-wrap gap-lg-4 justify-content-center mb-4">
-        <h5 class="text-bg-dark fs-lg-3 px-4 py-3 rounded-4">2024 立委參選人</h5>
-        <h2 class="hstack gap-4 text-primary fs-3 fs-lg-1 shadow-lg px-4 py-3 rounded-4">
-          <span class="circle-mark fs-2">3</span>
-          喵立翰 Miao Li-Han
-        </h2>
+        <h1
+          class="d-flex flex-column flex-lg-row justify-content-center bg-primary-light font-display text-primary-gradient mb-4"
+        >
+          <span class="me-lg-4">台灣的明天</span>
+          <span>喵先鋪路</span>
+        </h1>
+        <div class="hstack flex-wrap gap-lg-4 justify-content-center mb-4">
+          <h5 class="text-bg-dark fs-lg-3 px-4 py-3 rounded-4">2024 立委參選人</h5>
+          <h2 class="hstack gap-4 text-primary fs-3 fs-lg-1 shadow-lg px-4 py-3 rounded-4">
+            <span class="circle-mark fs-2">3</span>
+            喵立翰 Miao Li-Han
+          </h2>
+        </div>
       </div>
-    </div>
-    <Transition
-      :appear="true"
-      name="bounce"
-    >
+    </Transition>
+    <Transition name="bounce">
       <img
+        v-show="state.pageReady"
         class="mh-100 min-h-255px"
         srcset="/images/portrait-1.png 723w, /images/portrait-1-sm.png 480w"
         sizes="(max-width: 992px) 480px, 723px"
@@ -412,23 +425,26 @@
         @close="closeAllModal"
       />
     </section>
-    <section
-      id="slogan"
-      class="container vstack text-center pb-26 pt-42 pt-lg-52"
-    >
-      <h1
-        class="d-flex flex-column flex-lg-row justify-content-center bg-primary-light font-display text-primary-gradient mb-6 mb-lg-4"
+    <Transition name="bounce">
+      <section
+        id="slogan"
+        v-show="isSloganScrollIn"
+        class="container vstack text-center pb-26 pt-42 pt-lg-52"
       >
-        <span class="me-lg-4">台灣的明天</span>
-        <span>喵先鋪路</span>
-      </h1>
-      <div class="hstack flex-wrap gap-lg-4 justify-content-center mb-4">
-        <h4 class="hstack gap-4 text-primary fs-lg-1 shadow-lg-lg px-lg-4 py-lg-3 rounded-4">
-          <span class="circle-mark fs-2">3</span>
-          喵立翰 Miao Li-Han
-        </h4>
-      </div>
-    </section>
+        <h1
+          class="d-flex flex-column flex-lg-row justify-content-center bg-primary-light font-display text-primary-gradient mb-6 mb-lg-4"
+        >
+          <span class="me-lg-4">台灣的明天</span>
+          <span>喵先鋪路</span>
+        </h1>
+        <div class="hstack flex-wrap gap-lg-4 justify-content-center mb-4">
+          <h4 class="hstack gap-4 text-primary fs-lg-1 shadow-lg-lg px-lg-4 py-lg-3 rounded-4">
+            <span class="circle-mark fs-2">3</span>
+            喵立翰 Miao Li-Han
+          </h4>
+        </div>
+      </section>
+    </Transition>
   </main>
 
   <Footer />
@@ -437,7 +453,8 @@
   .bounce-enter-active {
     animation: bounce-in 1.3s;
   }
-  .bounce-leave-active {
-    animation: bounce-in 1.3s reverse;
+
+  .fade-in-up-enter-active {
+    animation: fadeInUp 2s;
   }
 </style>
